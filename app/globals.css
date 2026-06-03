@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* fontes carregadas via next/font no layout */
+  --font-sans: "Inter Tight", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@layer components {
+  /* Container central do design system */
+  .container-wide {
+    @apply mx-auto w-full max-w-wide px-6 xl:px-20;
+  }
+
+  /* Botão pill primário (dourado) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill bg-ouro-grad px-6 py-3.5
+           font-sans text-body-lg font-medium text-carvao transition
+           hover:brightness-105 hover:-translate-y-0.5;
+  }
+
+  /* Botão pill secundário (ghost, p/ fundo escuro) */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill border border-white/30
+           bg-white/10 px-6 py-3.5 font-sans text-body-lg font-medium text-white
+           backdrop-blur-md transition hover:bg-white/20;
+  }
+
+  .eyebrow {
+    @apply font-sans text-body-sm font-semibold uppercase tracking-[0.2em] text-ouro-claro;
+  }
+}
+
+/* Glow dourado que percorre a barrinha horizontal (seção "Para quem é") */
+@keyframes glow-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.barra-glow {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #C8972F, #80590F);
+}
+.barra-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, #F8EAB4, #FFFFFF, #F8EAB4, transparent);
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.group-pq:hover .barra-glow::after {
+  opacity: 1;
+  animation: glow-sweep 1.1s ease-in-out;
+}
+.group-pq:hover .barra-glow {
+  box-shadow: 0 0 14px 1px rgba(234, 201, 116, 0.7);
+}
+
+/* ===== Botão WhatsApp: preto + texto dourado → hover dourado + texto preto + glow ===== */
+.btn-wa {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  border: 1px solid rgba(200, 151, 47, 0.5);
+  background: #15110b;            /* preto */
+  padding: 0.875rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: #eac974;                /* texto dourado */
+  transition: color .35s ease, background .35s ease, box-shadow .35s ease, transform .2s ease;
+}
+.btn-wa svg,
+.btn-wa > * { position: relative; z-index: 2; }
+/* a faixa de glow que percorre (atrás do texto) */
+.btn-wa::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: translateX(-120%);
+  z-index: 1;
+  pointer-events: none;
+}
+.btn-wa:hover {
+  background: linear-gradient(135deg, #EAC974, #C8972F);  /* dourado */
+  color: #15110b;                                          /* texto preto */
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px 2px rgba(234, 201, 116, 0.55);
+}
+.btn-wa:hover::after {
+  animation: glow-sweep 0.9s ease-in-out;
+}
+
+/* cursor piscante do hero (estilo Bobbin) */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1.1s steps(1) infinite;
+}
