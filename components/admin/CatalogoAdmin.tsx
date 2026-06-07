@@ -175,7 +175,17 @@ function ModalMaquina({ maquina, marcas, onClose }: { maquina: Maquina | null; m
           </select>
         </div>
         <div><label className={labelCls}>Resumo (card)</label><textarea name="resumo" defaultValue={maquina?.resumo ?? ""} rows={2} className={inputCls} /></div>
-        <div><label className={labelCls}>Descrição / especificações</label><textarea name="descricao" defaultValue={maquina?.descricao ?? ""} rows={4} className={inputCls} /></div>
+        <div><label className={labelCls}>Descrição</label><textarea name="descricao" defaultValue={maquina?.descricao ?? ""} rows={4} className={inputCls} /></div>
+        <div>
+          <label className={labelCls}>Especificações técnicas (uma por linha: Rótulo: Valor)</label>
+          <textarea
+            name="especificacoes"
+            defaultValue={(maquina?.especificacoes ?? []).map((e) => `${e.rotulo}: ${e.valor}`).join("\n")}
+            rows={6}
+            placeholder={"Comando CNC: Syntec 60 WE\nMotor Spindle: 9kW (12 cv) 24.000 RPM\nÁrea de trabalho: 1840 x 2750 x 80 mm"}
+            className={`${inputCls} font-mono text-[12px]`}
+          />
+        </div>
         <div>
           <label className={labelCls}>Adicionar fotos {maquina && `(já tem ${maquina.fotos?.length ?? 0})`}</label>
           <input type="file" name="fotos" accept="image/*" multiple className="text-body-sm" />

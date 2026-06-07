@@ -127,14 +127,65 @@ export default async function ModeloPage({ params }: { params: Promise<Params> }
           </div>
         </section>
 
-        {/* descrição / especificações */}
+        {/* descrição */}
         {maquina.descricao && (
           <section className="bg-creme py-16">
             <div className="container-wide max-w-[820px]">
-              <h2 className="mb-5 font-serif text-h4 text-marinho">Especificações e detalhes</h2>
+              <h2 className="mb-5 font-serif text-h4 text-marinho">Sobre esta máquina</h2>
               <div className="whitespace-pre-wrap text-body-lg leading-relaxed text-preto/75">
                 {maquina.descricao}
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* tabela de especificações técnicas */}
+        {maquina.especificacoes && maquina.especificacoes.length > 0 && (
+          <section className="bg-creme-dark py-16">
+            <div className="container-wide max-w-[900px]">
+              <h2 className="mb-6 font-serif text-h4 text-marinho">Especificações técnicas</h2>
+              <div className="overflow-hidden rounded-2xl border border-linha bg-white">
+                <table className="w-full text-left text-body-md">
+                  <tbody>
+                    {maquina.especificacoes.map((e, i) => (
+                      <tr key={i} className="border-b border-linha/60 last:border-0">
+                        <th className="w-2/5 bg-creme/50 px-5 py-3.5 font-semibold text-marinho align-top">
+                          {e.rotulo}
+                        </th>
+                        <td className="px-5 py-3.5 text-preto/75">{e.valor}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* download do catálogo em PDF */}
+        {maquina.pdf_url && (
+          <section className="bg-creme-dark pb-16">
+            <div className="container-wide max-w-[900px]">
+              <a
+                href={maquina.pdf_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-between gap-4 rounded-2xl border border-ouro/40 bg-gradient-to-r from-marinho to-carvao p-7 text-white sm:flex-row"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-ouro/20">
+                    <svg viewBox="0 0 24 24" className="h-6 w-6 text-ouro-claro" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <path d="M12 3v12m0 0l-4-4m4 4l4-4" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-serif text-h6">Baixe o catálogo completo</div>
+                    <div className="text-body-sm text-white/70">Todas as especificações técnicas da {maquina.nome} em PDF.</div>
+                  </div>
+                </div>
+                <span className="btn-primary shrink-0">Baixar PDF →</span>
+              </a>
             </div>
           </section>
         )}

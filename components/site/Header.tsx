@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-carvao/90 text-white backdrop-blur-md">
       <div className="container-wide flex h-[72px] items-center justify-between">
-        <a href="#top" className="flex items-center" aria-label="Íntegra — início">
+        <a href="/" className="flex items-center" aria-label="Íntegra — início">
           <LogoIntegraFull className="h-11 w-auto shrink-0 transition-transform duration-300 hover:scale-[1.03]" />
         </a>
 

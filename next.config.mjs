@@ -9,10 +9,13 @@ const nextConfig = {
       },
     ],
   },
-  // Deploy ágil: não bloquear o build por warnings de lint ou TS.
-  // (Reativar para reforçar qualidade quando o site estabilizar.)
-  eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
+  experimental: {
+    serverActions: {
+      // permite upload de vídeos grandes pelas Server Actions (padrão é 1MB)
+      bodySizeLimit: "200mb",
+    },
+  },
 };
 
 export default nextConfig;

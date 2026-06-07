@@ -1,24 +1,27 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Solicitacao, Lead, Marca, Maquina } from "@/lib/supabase/types";
+import type { Solicitacao, Lead, Marca, Maquina, ItemGaleria } from "@/lib/supabase/types";
 import RegistroRow from "./RegistroRow";
 import Dashboard from "./Dashboard";
 import CatalogoAdmin from "./CatalogoAdmin";
+import GaleriaAdmin from "./GaleriaAdmin";
 
-type Secao = "dashboard" | "solicitacoes" | "leads" | "catalogo";
+type Secao = "dashboard" | "solicitacoes" | "leads" | "catalogo" | "galeria";
 
 export default function AdminPanel({
   solicitacoes,
   leads,
   marcas,
   maquinas,
+  galeria,
   email,
 }: {
   solicitacoes: Solicitacao[];
   leads: Lead[];
   marcas: Marca[];
   maquinas: Maquina[];
+  galeria: ItemGaleria[];
   email: string;
 }) {
   const [secao, setSecao] = useState<Secao>("dashboard");
@@ -28,6 +31,7 @@ export default function AdminPanel({
     { id: "solicitacoes", label: "Solicitações", badge: solicitacoes.filter((s) => s.status === "novo").length },
     { id: "leads", label: "Leads", badge: leads.filter((l) => l.status === "novo").length },
     { id: "catalogo", label: "Catálogo" },
+    { id: "galeria", label: "Galeria" },
   ];
 
   return (
@@ -68,6 +72,7 @@ export default function AdminPanel({
       {secao === "solicitacoes" && <Solicitacoes dados={solicitacoes} />}
       {secao === "leads" && <Leads dados={leads} />}
       {secao === "catalogo" && <CatalogoAdmin marcas={marcas} maquinas={maquinas} />}
+      {secao === "galeria" && <GaleriaAdmin itens={galeria} />}
     </div>
   );
 }

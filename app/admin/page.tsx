@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import type { Solicitacao, Lead, Marca, Maquina } from "@/lib/supabase/types";
+import type { Solicitacao, Lead, Marca, Maquina, ItemGaleria } from "@/lib/supabase/types";
 import AdminPanel from "@/components/admin/AdminPanel";
 
 export const dynamic = "force-dynamic";
@@ -18,11 +18,13 @@ export default async function AdminDashboard() {
     { data: leads },
     { data: marcas },
     { data: maquinas },
+    { data: galeria },
   ] = await Promise.all([
     supabase.from("solicitacoes").select("*").order("criado_em", { ascending: false }),
     supabase.from("leads").select("*").order("criado_em", { ascending: false }),
     supabase.from("marcas").select("*").order("ordem"),
     supabase.from("maquinas").select("*").order("ordem"),
+    supabase.from("galeria").select("*").order("ordem").order("criado_em", { ascending: false }),
   ]);
 
   return (
@@ -31,6 +33,7 @@ export default async function AdminDashboard() {
       leads={(leads as Lead[]) ?? []}
       marcas={(marcas as Marca[]) ?? []}
       maquinas={(maquinas as Maquina[]) ?? []}
+      galeria={(galeria as ItemGaleria[]) ?? []}
       email={user.email ?? ""}
     />
   );

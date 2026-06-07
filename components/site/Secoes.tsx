@@ -153,10 +153,10 @@ export function Diferencial() {
 /* ---------------- NÚMEROS ---------------- */
 export function Numeros() {
   const bigCls =
-    "bg-ouro-grad bg-clip-text font-serif text-[clamp(30px,4vw,46px)] font-semibold text-transparent";
+    "bg-ouro-grad bg-clip-text font-serif text-[clamp(26px,6vw,46px)] font-semibold text-transparent";
   return (
-    <section className="bg-carvao py-16 text-white">
-      <div className="container-wide grid gap-8 text-center md:grid-cols-2 xl:grid-cols-4">
+    <section className="bg-carvao py-14 text-white xl:py-16">
+      <div className="container-wide grid grid-cols-2 gap-x-4 gap-y-10 text-center xl:grid-cols-4">
         <div>
           <Counter value={10} prefix="+" className={bigCls} />
           <div className="mt-1.5 text-body-md text-white/55">anos de mercado em CNC e automação</div>
@@ -265,6 +265,16 @@ export function Sobre() {
             </p>
           </div>
           <p className="mt-6 font-serif text-h6 text-marinho">Ricardo Senhorinha</p>
+
+          {/* Conecte-se + galeria de provas sociais */}
+          <div className="mt-8 border-t border-linha pt-6">
+            <p className="font-sans text-body-sm font-semibold uppercase tracking-[0.18em] text-ouro">
+              Conecte-se com Ricardo
+            </p>
+            <a href="/galeria" className="btn-primary mt-4 uppercase tracking-wide">
+              Galeria de provas sociais →
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -294,7 +304,7 @@ export function CatalogoHome({ marcas }: { marcas: Marca[] }) {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {marcas.map((m, i) => (
-            <Reveal key={m.id} delay={i * 100}>
+            <Reveal key={m.id} delay={i * 100} className="h-full">
               <MarcaCard marca={m} />
             </Reveal>
           ))}
@@ -369,6 +379,7 @@ export function Footer() {
             <li><a href="#solucoes" className="hover:text-ouro-claro">Soluções</a></li>
             <li><a href="#diferencial" className="hover:text-ouro-claro">Por que a Íntegra</a></li>
             <li><a href="#sobre" className="hover:text-ouro-claro">Sobre o Ricardo</a></li>
+            <li><a href="/galeria" className="hover:text-ouro-claro">Galeria de projetos</a></li>
             <li><a href="#faq" className="hover:text-ouro-claro">Dúvidas frequentes</a></li>
           </ul>
         </div>
@@ -384,6 +395,19 @@ export function Footer() {
         <span className="text-center sm:text-left">
           Íntegra Representações · Parceiro oficial ETools Imports · © {new Date().getFullYear()}
         </span>
+
+        <span className="text-center text-[12px] text-footer-text">
+          Site desenvolvido por{" "}
+          <a
+            href="https://wa.me/5547991969766"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-footer-text transition hover:text-ouro-claro"
+          >
+            JV WEB STUDIO
+          </a>
+        </span>
+
         <a
           href="/admin"
           aria-label="Acesso restrito — equipe Íntegra"

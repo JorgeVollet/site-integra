@@ -83,12 +83,25 @@ export async function salvarMaquina(formData: FormData) {
     }
   }
 
+  // especificações: textarea com uma linha "Rótulo: Valor" por spec
+  const specsRaw = (formData.get("especificacoes") as string) || "";
+  const especificacoes = specsRaw
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .map((l) => {
+      const idx = l.indexOf(":");
+      if (idx === -1) return { rotulo: l, valor: "" };
+      return { rotulo: l.slice(0, idx).trim(), valor: l.slice(idx + 1).trim() };
+    });
+
   const dados = {
     nome,
     slug: ((formData.get("slug") as string)?.trim() || slugify(nome)),
     marca_id: (formData.get("marca_id") as string) || null,
     resumo: (formData.get("resumo") as string)?.trim() || null,
     descricao: (formData.get("descricao") as string)?.trim() || null,
+    especificacoes,
     fotos: [...fotosExistentes, ...novasUrls],
     destaque: formData.get("destaque") === "on",
     ordem: Number(formData.get("ordem") || 0),

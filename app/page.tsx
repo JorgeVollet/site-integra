@@ -3,6 +3,7 @@ import type { Depoimento, Marca } from "@/lib/supabase/types";
 import Header from "@/components/site/Header";
 import Hero from "@/components/site/Hero";
 import Faq from "@/components/site/Faq";
+import Parceiros from "@/components/site/Parceiros";
 import LeadPopup from "@/components/site/LeadPopup";
 import {
   ParaQuem,
@@ -17,24 +18,22 @@ import {
   WhatsappFloat,
 } from "@/components/site/Secoes";
 
-// Revalida o conteúdo do banco a cada 60s (catálogo/depoimentos)
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const supabase = await createClient();
-
-  const [{ data: marcas }, { data: depoimentos }] = await Promise.all([
-    supabase
-      .from("marcas")
-      .select("*")
-      .eq("ativo", true)
-      .order("ordem"),
-    supabase
-      .from("depoimentos")
-      .select("*")
-      .eq("ativo", true)
-      .order("ordem"),
-  ]);
+  let marcas: Marca[] = [];
+  let depoimentos: Depoimento[] = [];
+  try {
+    const supabase = await createClient();
+    const [r1, r2] = await Promise.all([
+      supabase.from("marcas").select("*").eq("ativo", true).order("ordem"),
+      supabase.from("depoimentos").select("*").eq("ativo", true).order("ordem"),
+    ]);
+    marcas = (r1.data as Marca[]) ?? [];
+    depoimentos = (r2.data as Depoimento[]) ?? [];
+  } catch (e) {
+    console.error("Erro ao carregar dados da home:", e);
+  }
 
   return (
     <>
@@ -48,6 +47,7 @@ export default async function Home() {
         <Depoimentos depoimentos={(depoimentos as Depoimento[]) ?? []} />
         <Sobre />
         <CatalogoHome marcas={(marcas as Marca[]) ?? []} />
+        <Parceiros />
         <Faq />
         <CtaTransbordo />
       </main>

@@ -11,15 +11,15 @@ export default function MarcaCard({
   return (
     <a
       href={`/maquinas/${marca.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-linha bg-white transition hover:-translate-y-1 hover:border-ouro hover:shadow-[0_18px_40px_rgba(11,37,69,0.12)]"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-linha bg-white transition hover:-translate-y-1 hover:border-ouro hover:shadow-[0_18px_40px_rgba(11,37,69,0.12)]"
     >
-      <div className="relative aspect-[16/9] w-full overflow-hidden bg-creme-dark">
+      <div className="relative aspect-[16/9] w-full overflow-hidden bg-white">
         {marca.logo ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={marca.logo}
             alt={marca.nome}
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            className="h-full w-full object-contain p-3 transition duration-500 group-hover:scale-[1.03]"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-marinho to-carvao">

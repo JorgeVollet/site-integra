@@ -30,7 +30,9 @@ export interface Maquina {
   marca_id: string | null;
   resumo: string | null;
   descricao: string | null;
+  especificacoes: { rotulo: string; valor: string }[];
   fotos: string[];
+  pdf_url: string | null;
   destaque: boolean;
   ordem: number;
   ativo: boolean;
@@ -60,6 +62,17 @@ export interface Depoimento {
   foto: string | null;
   ativo: boolean;
   ordem: number;
+  criado_em: string;
+}
+
+export interface ItemGaleria {
+  id: string;
+  tipo: "foto" | "video";
+  url: string;
+  poster: string | null;
+  titulo: string | null;
+  ordem: number;
+  ativo: boolean;
   criado_em: string;
 }
 
